@@ -1,0 +1,13 @@
+{
+    "functions": [
+        "3*a + 9*b >= 27",
+        "8*a + 4*b >= 32",
+        "12*a + 3*b >= 36"
+    ],
+    "optimization": ["6*a + 9*b", "min"],
+    "boundaries": {
+        "a": [0, 10000],
+        "b": [0, 10000]
+    },
+    "variables": ["a", "b"]
+}
