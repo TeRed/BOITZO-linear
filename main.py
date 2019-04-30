@@ -1,7 +1,6 @@
 from __future__ import with_statement
-from pprint import pprint
-import heapq
 from random import *
+import heapq
 import sys
 import numexpr as ne
 import json
@@ -19,10 +18,10 @@ def get_optimization_problem_json():
         with open(file) as json_data:
             data = json.load(json_data)
             optimization_problem = data
-            optimization_problem['optimization'] = tuple(optimization_problem['optimization'])
+            # optimization_problem['optimization'] = tuple(optimization_problem['optimization'])
             # for key, value in optimization_problem['boundaries'].items():
             #     optimization_problem['optimization'][key] = tuple(value)
-    except EnvironmentError: # parent of IOError, OSError *and* WindowsError where available
+    except EnvironmentError:
         print('File not found!')
         print()
         input("Press Enter to continue...")
@@ -81,7 +80,7 @@ def optimize():
                 if up_limit > optimization_problem['boundaries'][var][1]:
                     up_limit = optimization_problem['boundaries'][var][1]
                 limits.append((down_limit, up_limit))
-        for point in range(10000):
+        for point in range(100000):
             answer = []
             if current_answer:
                 for down_limit, up_limit in limits:
@@ -123,17 +122,17 @@ def optimize():
             break
 
 def prompt_optimization_problem():
-    pprint(json.dumps(optimization_problem, indent=1, sort_keys=True))
+    print(json.dumps(optimization_problem, indent=1, sort_keys=True))
     print()
     input("Press Enter to continue...")
 
 def prompt_current_answer():
     if not current_answer:
-        pprint(json.dumps({}))
+        print("Nothing optimized so far")
         print()
         input("Press Enter to continue...")
         return
-    pprint(json.dumps(dict(zip(['Optimization function'] + \
+    print(json.dumps(dict(zip(['Optimization function'] + \
     optimization_problem['variables'], current_answer)), indent=1, sort_keys=True))
     print()
     input("Press Enter to continue...")
